@@ -50,7 +50,6 @@ public class CategoryControllerTest {
         List<Category> categories = new ArrayList<>();   
         Category category = new Category("Eletronic");
         categories.add(category);
-
         when(this.categoryRepository.findAll()).thenReturn(categories);
 
         MvcResult result = this.mockMvc.perform(MockMvcRequestBuilders
@@ -104,7 +103,6 @@ public class CategoryControllerTest {
         Category category = new Category("Pets");
         Category categoryAdded = new Category("Pets");
         categoryAdded.setId(1L);
-
         when(this.categoryRepository.save(Mockito.any())).thenReturn(categoryAdded);
         
         MvcResult result = this.mockMvc.perform(MockMvcRequestBuilders
@@ -121,11 +119,51 @@ public class CategoryControllerTest {
     }
 
     @Test
+    public void update() throws Exception{
+        Category category = new Category("Pets Updated");
+        category.setId(1L);
+        Category categoryUp = new Category("Pets");
+        categoryUp.setId(1L);
+        when(this.categoryRepository.findById(Mockito.any())).thenReturn(Optional.of(categoryUp));
+        when(this.categoryRepository.save(Mockito.any())).thenReturn(category);
+        
+        MvcResult result = this.mockMvc.perform(MockMvcRequestBuilders
+        .put("/api/category/1")
+            .content(this.asJsonString(category))
+            .contentType(MediaType.APPLICATION_JSON)
+            .accept(MediaType.APPLICATION_JSON))
+        .andExpect(MockMvcResultMatchers.status().isOk())
+        .andReturn();
+        
+        MockHttpServletResponse responseMock = result.getResponse();
+        Assertions.assertEquals("{\"message\":\"Success\",\"data\":{\"id\":1,\"name\":\"Pets Updated\",\"products\":null}}",
+            responseMock.getContentAsString());
+    }
+
+    @Test
+    public void errorNotFoundupdate() throws Exception{
+        Category category = new Category("Pets Updated");
+        category.setId(1L);
+        when(this.categoryRepository.findById(Mockito.any())).thenReturn(Optional.empty());
+        
+        MvcResult result = this.mockMvc.perform(MockMvcRequestBuilders
+        .put("/api/category/1")
+            .content(this.asJsonString(category))
+            .contentType(MediaType.APPLICATION_JSON)
+            .accept(MediaType.APPLICATION_JSON))
+        .andExpect(MockMvcResultMatchers.status().isOk())
+        .andReturn();
+        
+        MockHttpServletResponse responseMock = result.getResponse();
+        Assertions.assertEquals("{\"message\":\"Category not found id 1\",\"data\":null}",
+            responseMock.getContentAsString());
+    }
+
+    @Test
     public void errorToCreateCategory() throws Exception{
         Category category = new Category("Pets");
         Category categoryAdded = new Category("Pets");
         categoryAdded.setId(1L);
-
         when(this.categoryRepository.save(Mockito.any())).thenReturn(null);
         
         MvcResult result = this.mockMvc.perform(MockMvcRequestBuilders
