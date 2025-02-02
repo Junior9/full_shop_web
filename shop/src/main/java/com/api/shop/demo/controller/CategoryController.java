@@ -42,7 +42,7 @@ public class CategoryController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<ResponseApi> update(@RequestBody Category category, @PathVariable String id){
+    public ResponseEntity<ResponseApi> update(@RequestBody Category category, @PathVariable Long id){
         try{
             Optional<Category> categoryOp = this.categoryService.update(category, id);
             if(categoryOp.isPresent()){
@@ -70,7 +70,7 @@ public class CategoryController {
     }
 
     @GetMapping("id/{id}")
-    public ResponseEntity<ResponseApi> getById(@PathVariable String id){
+    public ResponseEntity<ResponseApi> getById(@PathVariable Long id){
 
         try{
             Optional<Category> categoryOp = this.categoryService.getById(id);
@@ -100,7 +100,7 @@ public class CategoryController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<ResponseApi> deleteById(@PathVariable String id){
+    public ResponseEntity<ResponseApi> deleteById(@PathVariable Long id){
         try{
             this.categoryService.deleteById(id);
             return ResponseEntity.status(HttpStatus.OK).body(ResponseApi.builder().message("Success").build());

@@ -14,9 +14,11 @@ import com.api.shop.demo.model.Category;
 import com.api.shop.demo.repository.CategoryRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class CategoryService implements CategoryServiceInter {
 
     private final CategoryRepository categoryRepository;
@@ -27,7 +29,7 @@ public class CategoryService implements CategoryServiceInter {
             List<Category> categories = this.categoryRepository.findAll();
             return Optional.of(categories);
         }catch(Exception error){
-            System.err.println("Error to get all categories : " + error.getMessage());
+            log.error("Error to get all categories :",error );
             throw new ResourceNotFound("There is not category regostery");
         }
     }
@@ -44,7 +46,7 @@ public class CategoryService implements CategoryServiceInter {
     }
 
     @Override
-    public Optional<Category> getById(String id) {
+    public Optional<Category> getById(Long id) {
         try{
             Optional<Category> categoryOp = this.categoryRepository.findById(id);
             if(categoryOp.isPresent()){
@@ -60,7 +62,7 @@ public class CategoryService implements CategoryServiceInter {
     }
 
     @Override
-    public void deleteById(String id) {
+    public void deleteById(Long id) {
         try{
             this.categoryRepository.deleteById(id);
         }catch(Exception error){
@@ -86,7 +88,7 @@ public class CategoryService implements CategoryServiceInter {
     }
 
     @Override
-    public Optional<Category> update(Category categoryUpdate, String id) {
+    public Optional<Category> update(Category categoryUpdate, Long id) {
         try{
             Optional<Category> categoryOp = getById(id);
             if(categoryOp.isPresent()){

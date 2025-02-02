@@ -126,7 +126,7 @@ public class CategoryServiceTest {
 
     @Test
     public void getCategoryById(){
-        String id = "1";
+        Long id = 1L;
         Category category = new Category();
         category.setName("home");
         category.setId(1L);
@@ -142,7 +142,7 @@ public class CategoryServiceTest {
 
     @Test
     public void errorNotFoundToGetCategoryById(){
-        String id = "1";
+        Long id = 1L;
         try{
             when(this.categoryRepository.findById(id)).thenReturn(Optional.empty());
             this.categoryService.getById(id);
@@ -153,7 +153,7 @@ public class CategoryServiceTest {
 
     @Test
     public void deleteCategory(){
-        String id = "1";
+        Long id = 1L;
         this.categoryService.deleteById(id);
         verify(this.categoryRepository).deleteById(id);
     }
@@ -169,10 +169,10 @@ public class CategoryServiceTest {
         Category categoryHome = new Category("Home");
         categoryHome.setId(1L);
 
-        when(this.categoryRepository.findById("1")).thenReturn(Optional.of(categoryHome));
+        when(this.categoryRepository.findById(1L)).thenReturn(Optional.of(categoryHome));
         when(this.categoryRepository.save(Mockito.any())).thenReturn(category);
 
-        Optional<Category> categoryUpdatedd = this.categoryService.update(category, "1");
+        Optional<Category> categoryUpdatedd = this.categoryService.update(category, 1L);
         Assertions.assertTrue(categoryUpdatedd.isPresent());
         Assertions.assertEquals("Eletronic", categoryUpdatedd.get().getName());
 
@@ -186,9 +186,9 @@ public class CategoryServiceTest {
 
         Category categoryHome = new Category("Home");
         categoryHome.setId(2L);
-        when(this.categoryRepository.findById("1")).thenReturn(Optional.of(categoryHome));
+        when(this.categoryRepository.findById(1L)).thenReturn(Optional.of(categoryHome));
         try{
-            this.categoryService.update(category, "1");
+            this.categoryService.update(category, 1L);
         }catch(Exception error){
             Assertions.assertEquals("Different categories ids to the updated", error.getMessage());
         }
@@ -202,10 +202,10 @@ public class CategoryServiceTest {
 
         Category categoryHome = new Category("Home");
         categoryHome.setId(2L);
-        when(this.categoryRepository.findById("1")).thenReturn(Optional.of(categoryHome));
+        when(this.categoryRepository.findById(1L)).thenReturn(Optional.of(categoryHome));
         try{
-            when(this.categoryRepository.findById("1")).thenReturn(Optional.empty());
-            this.categoryService.update(category, "1");
+            when(this.categoryRepository.findById(1L)).thenReturn(Optional.empty());
+            this.categoryService.update(category, 1L);
         }catch(Exception error){
             Assertions.assertEquals("Category not found id 1", error.getMessage());
         }

@@ -10,9 +10,9 @@ public interface CategoryServiceInter {
 
     public Optional<List<Category>> getAll();
     public Optional<Category> getByName(String name);
-    public Optional<Category> getById(String id);
-    public void deleteById(String id);
+    public Optional<Category> getById(Long id);
+    public void deleteById(Long id);
     public Optional<Category> add(Category category);
-    public Optional<Category> update(Category category, String id);
+    public Optional<Category> update(Category category, Long id);
 
 }

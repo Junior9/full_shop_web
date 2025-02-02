@@ -58,7 +58,7 @@ public class CategoryControllerTest {
                     .andReturn();
 
         MockHttpServletResponse responseMock = result.getResponse();
-        Assertions.assertEquals("{\"message\":\"Success\",\"data\":[{\"id\":null,\"name\":\"Eletronic\",\"products\":null}]}",    responseMock.getContentAsString());
+        Assertions.assertEquals("{\"message\":\"Success\",\"data\":[{\"id\":null,\"name\":\"Eletronic\"}]}",    responseMock.getContentAsString());
     }
 
     @Test
@@ -68,7 +68,7 @@ public class CategoryControllerTest {
         Category category = new Category("Eletronic");
         category.setId(1L);
         categories.add(category);
-        String id = "1";
+        Long id = 1L;
         when(this.categoryRepository.findById(id)).thenReturn(Optional.empty());
 
         MvcResult result = this.mockMvc.perform(MockMvcRequestBuilders
@@ -95,7 +95,7 @@ public class CategoryControllerTest {
                     .andReturn();
 
         MockHttpServletResponse responseMock = result.getResponse();
-        Assertions.assertEquals("{\"message\":\"Success\",\"data\":{\"id\":1,\"name\":\"Home\",\"products\":null}}",    responseMock.getContentAsString());
+        Assertions.assertEquals("{\"message\":\"Success\",\"data\":{\"id\":1,\"name\":\"Home\"}}",    responseMock.getContentAsString());
     }
 
     @Test
@@ -114,7 +114,7 @@ public class CategoryControllerTest {
         .andReturn();
         
         MockHttpServletResponse responseMock = result.getResponse();
-        Assertions.assertEquals("{\"message\":\"Success\",\"data\":{\"id\":1,\"name\":\"Pets\",\"products\":null}}",
+        Assertions.assertEquals("{\"message\":\"Success\",\"data\":{\"id\":1,\"name\":\"Pets\"}}",
             responseMock.getContentAsString());
     }
 
@@ -136,7 +136,7 @@ public class CategoryControllerTest {
         .andReturn();
         
         MockHttpServletResponse responseMock = result.getResponse();
-        Assertions.assertEquals("{\"message\":\"Success\",\"data\":{\"id\":1,\"name\":\"Pets Updated\",\"products\":null}}",
+        Assertions.assertEquals("{\"message\":\"Success\",\"data\":{\"id\":1,\"name\":\"Pets Updated\"}}",
             responseMock.getContentAsString());
     }
 
