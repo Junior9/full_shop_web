@@ -189,30 +189,30 @@ public class CategoryControllerTest {
         MvcResult result = this.mockMvc.perform(MockMvcRequestBuilders
         .post("/api/category/")
             .content(this.asJsonString(category))
-            .contentType(MediaType.APPLICATION_JSON)
-            .accept(MediaType.APPLICATION_JSON))
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andReturn();
-        
-        MockHttpServletResponse responseMock = result.getResponse();
-        Assertions.assertEquals("{\"message\":\"Error to create a category : Category name Pets already exixt, you should update it.\",\"data\":null}",
-            responseMock.getContentAsString());
-    }
-
-    @Test
-    public void deleteTest() throws Exception{
-        String id = "1";
-        MvcResult result = this.mockMvc.perform(MockMvcRequestBuilders
-            .delete("/api/category/"+id))
-            .andExpect(MockMvcResultMatchers.status().isOk())
-            .andReturn();
-
-        MockHttpServletResponse responseMock = result.getResponse();
-        Assertions.assertEquals("{\"message\":\"Success\",\"data\":null}",
-            responseMock.getContentAsString());
-    }
-
-    private static String asJsonString(final Object obj) {
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                    .andExpect(MockMvcResultMatchers.status().isOk())
+                    .andReturn();
+                    
+                    MockHttpServletResponse responseMock = result.getResponse();
+                    Assertions.assertEquals("{\"message\":\"Error to create a category : Category name Pets already exixt, you should update it.\",\"data\":null}",
+                        responseMock.getContentAsString());
+                }
+            
+                @Test
+                public void deleteTest() throws Exception{
+                    String id = "1";
+                    MvcResult result = this.mockMvc.perform(MockMvcRequestBuilders
+                        .delete("/api/category/"+id))
+                        .andExpect(MockMvcResultMatchers.status().isOk())
+                        .andReturn();
+            
+                    MockHttpServletResponse responseMock = result.getResponse();
+                    Assertions.assertEquals("{\"message\":\"Success\",\"data\":null}",
+                        responseMock.getContentAsString());
+                }
+            
+                private String asJsonString(final Object obj) {
         try {
             final ObjectMapper mapper = new ObjectMapper();
             final String jsonContent = mapper.writeValueAsString(obj);

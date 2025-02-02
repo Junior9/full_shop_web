@@ -1,6 +1,5 @@
 package com.api.shop.demo.service.imagine;
 
-import java.sql.Blob;
 import java.util.Optional;
 
 import javax.sql.rowset.serial.SerialBlob;
