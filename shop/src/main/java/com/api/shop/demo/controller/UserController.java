@@ -35,9 +35,10 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<ResponseApi> add(@RequestBody User user){
+    public ResponseEntity<ResponseApi> addCustomer(@RequestBody User user){
         try{
-            Optional<User> userOp = this.userservice.add(user);
+            Optional<User> userOp = this.userservice.addCustomer(user);
+            
             return ResponseEntity.status(HttpStatus.OK).body(ResponseApi.builder().message("Success").data(userOp.get()).build());
         }catch(Exception error){
             return ResponseEntity.status(HttpStatus.OK).body(ResponseApi.builder().message("Error: " + error.getMessage() ).build());
