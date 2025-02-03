@@ -23,5 +23,5 @@ Este é um projeto de uma loja online onde os usuários podem registrar produtos
 
 1. Clone o repositório:
    ```sh
-   git clone https://github.com/seu-usuario/seu-repositorio.git
-   cd seu-repositorio
+   git clone https://github.com/Junior9/full_shop_web.git
+
